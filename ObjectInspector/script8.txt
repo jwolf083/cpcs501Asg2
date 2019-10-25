@@ -1,0 +1,261 @@
+======================================================
+Filename: script8.txt
+Running Test: Test String
+Recursive: true
+Declaring Class Name: java.lang.String
+Super-class: 
+ None
+Interfaces: 
+	Declaring Class Name: java.io.Serializable
+	Super-class: 
+	 None
+	Interfaces: 
+	 None
+	Declaring Class Name: java.lang.Comparable
+	Super-class: 
+	 None
+	Interfaces: 
+	 None
+	Method 0
+	 Name: compareTo
+	Declaring Class Name: java.lang.CharSequence
+	Super-class: 
+	 None
+	Interfaces: 
+	 None
+	Method 0
+	 Name: toString
+	Method 1
+	 Name: charAt
+	Method 2
+	 Name: length
+	Method 3
+	 Name: subSequence
+	Method 4
+	 Name: chars
+	Method 5
+	 Name: codePoints
+	Method 6
+	 Name: lambda$chars$0
+	Method 7
+	 Name: lambda$codePoints$1
+Constructor 0
+ Name: java.lang.String
+ Parameter Types: class [B, int, int
+ Modifier: public
+Constructor 1
+ Name: java.lang.String
+ Parameter Types: class [B, class java.nio.charset.Charset
+ Modifier: public
+Constructor 2
+ Name: java.lang.String
+ Parameter Types: class [B, class java.lang.String
+ Modifier: public
+Constructor 3
+ Name: java.lang.String
+ Parameter Types: class [B, int, int, class java.nio.charset.Charset
+ Modifier: public
+Constructor 4
+ Name: java.lang.String
+ Parameter Types: class [B, int, int, class java.lang.String
+ Modifier: public
+Constructor 5
+ Name: java.lang.String
+ Parameter Types: class [C, boolean
+ Modifier: 
+Constructor 6
+ Name: java.lang.String
+ Parameter Types: class java.lang.StringBuilder
+ Modifier: public
+Constructor 7
+ Name: java.lang.String
+ Parameter Types: class java.lang.StringBuffer
+ Modifier: public
+Constructor 8
+ Name: java.lang.String
+ Parameter Types: class [B
+ Modifier: public
+Constructor 9
+ Name: java.lang.String
+ Parameter Types: class [I, int, int
+ Modifier: public
+Constructor 10
+ Name: java.lang.String
+ Parameter Types: None
+ Modifier: public
+Constructor 11
+ Name: java.lang.String
+ Parameter Types: class [C
+ Modifier: public
+Constructor 12
+ Name: java.lang.String
+ Parameter Types: class java.lang.String
+ Modifier: public
+Constructor 13
+ Name: java.lang.String
+ Parameter Types: class [C, int, int
+ Modifier: public
+Constructor 14
+ Name: java.lang.String
+ Parameter Types: class [B, int
+ Modifier: public
+Constructor 15
+ Name: java.lang.String
+ Parameter Types: class [B, int, int, int
+ Modifier: public
+Method 0
+ Name: equals
+Method 1
+ Name: toString
+Method 2
+ Name: hashCode
+Method 3
+ Name: compareTo
+Method 4
+ Name: compareTo
+Method 5
+ Name: indexOf
+Method 6
+ Name: indexOf
+Method 7
+ Name: indexOf
+Method 8
+ Name: indexOf
+Method 9
+ Name: indexOf
+Method 10
+ Name: indexOf
+Method 11
+ Name: valueOf
+Method 12
+ Name: valueOf
+Method 13
+ Name: valueOf
+Method 14
+ Name: valueOf
+Method 15
+ Name: valueOf
+Method 16
+ Name: valueOf
+Method 17
+ Name: valueOf
+Method 18
+ Name: valueOf
+Method 19
+ Name: valueOf
+Method 20
+ Name: charAt
+Method 21
+ Name: checkBounds
+Method 22
+ Name: codePointAt
+Method 23
+ Name: codePointBefore
+Method 24
+ Name: codePointCount
+Method 25
+ Name: compareToIgnoreCase
+Method 26
+ Name: concat
+Method 27
+ Name: contains
+Method 28
+ Name: contentEquals
+Method 29
+ Name: contentEquals
+Method 30
+ Name: copyValueOf
+Method 31
+ Name: copyValueOf
+Method 32
+ Name: endsWith
+Method 33
+ Name: equalsIgnoreCase
+Method 34
+ Name: format
+Method 35
+ Name: format
+Method 36
+ Name: getBytes
+Method 37
+ Name: getBytes
+Method 38
+ Name: getBytes
+ Throws Exceptions: java.io.UnsupportedEncodingException
+Method 39
+ Name: getBytes
+Method 40
+ Name: getChars
+Method 41
+ Name: getChars
+Method 42
+ Name: indexOfSupplementary
+Method 43
+ Name: intern
+Method 44
+ Name: isEmpty
+Method 45
+ Name: join
+Method 46
+ Name: join
+Method 47
+ Name: lastIndexOf
+Method 48
+ Name: lastIndexOf
+Method 49
+ Name: lastIndexOf
+Method 50
+ Name: lastIndexOf
+Method 51
+ Name: lastIndexOf
+Method 52
+ Name: lastIndexOf
+Method 53
+ Name: lastIndexOfSupplementary
+Method 54
+ Name: length
+Method 55
+ Name: matches
+Method 56
+ Name: nonSyncContentEquals
+Method 57
+ Name: offsetByCodePoints
+Method 58
+ Name: regionMatches
+Method 59
+ Name: regionMatches
+Method 60
+ Name: replace
+Method 61
+ Name: replace
+Method 62
+ Name: replaceAll
+Method 63
+ Name: replaceFirst
+Method 64
+ Name: split
+Method 65
+ Name: split
+Method 66
+ Name: startsWith
+Method 67
+ Name: startsWith
+Method 68
+ Name: subSequence
+Method 69
+ Name: substring
+Method 70
+ Name: substring
+Method 71
+ Name: toCharArray
+Method 72
+ Name: toLowerCase
+Method 73
+ Name: toLowerCase
+Method 74
+ Name: toUpperCase
+Method 75
+ Name: toUpperCase
+Method 76
+ Name: trim
+======================================================

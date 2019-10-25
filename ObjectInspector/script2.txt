@@ -1,0 +1,40 @@
+======================================================
+Filename: script2.txt
+Running Test: ClassA
+Recursive: true
+Declaring Class Name: driver.ClassA
+Super-class: 
+ None
+Interfaces: 
+	Declaring Class Name: java.io.Serializable
+	Super-class: 
+	 None
+	Interfaces: 
+	 None
+	Declaring Class Name: java.lang.Runnable
+	Super-class: 
+	 None
+	Interfaces: 
+	 None
+	Method 0
+	 Name: run
+Constructor 0
+ Name: driver.ClassA
+ Parameter Types: None
+ Modifier: public
+Constructor 1
+ Name: driver.ClassA
+ Parameter Types: int
+ Modifier: public
+Method 0
+ Name: run
+Method 1
+ Name: toString
+Method 2
+ Name: setVal
+ Throws Exceptions: java.lang.Exception
+Method 3
+ Name: printSomething
+Method 4
+ Name: getVal
+======================================================
