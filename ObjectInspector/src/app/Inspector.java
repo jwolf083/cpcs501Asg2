@@ -70,7 +70,19 @@ public class Inspector {
         			System.out.print(", " + exceptions[l].getCanonicalName());
         		}
     			System.out.println();
+    		} else {
+    			System.out.println(indent + " Exceptions: None");
     		}
+    		param = methods[i].getParameters();
+    		if (param.length > 0) {
+    			System.out.print(indent + " Parameter Types: " + param[0].getType());
+    			for (int l = 1; l < param.length; l+=1) {
+        			System.out.print(", " + param[l].getType());
+        		}	
+    		} else {
+    			System.out.print(indent + " Parameter Types: None");
+    		}
+    		System.out.println("\n" + indent + " Modifier: " + Modifier.toString(methods[i].getModifiers()));
     	}
     	
     }
