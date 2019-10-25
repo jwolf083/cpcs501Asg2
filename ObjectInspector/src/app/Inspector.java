@@ -1,6 +1,7 @@
 package app;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.Parameter;
@@ -21,6 +22,7 @@ public class Inspector {
     	Method[] methods;
     	String indent = getTabs(depth);
     	Class<?>[] exceptions;
+    	Field[] fields;
     	
     	System.out.println(indent + "Declaring Class Name: " + c.getCanonicalName());
     	
@@ -43,7 +45,7 @@ public class Inspector {
     	
     	constructors = c.getDeclaredConstructors();
     	for (int i = 0; i < constructors.length; i+=1) {
-    		System.out.println(indent + "Constructor " + Integer.toString(i));
+    		System.out.println(indent + "Constructor " + Integer.toString(i) + ":");
     		constructors[i].setAccessible(true);
     		System.out.println(indent + " Name: " + constructors[i].getName());
     		param = constructors[i].getParameters();
@@ -60,7 +62,7 @@ public class Inspector {
     	
     	methods = c.getDeclaredMethods();
     	for (int i = 0; i < methods.length; i+=1) {
-    		System.out.println(indent + "Method " + Integer.toString(i));
+    		System.out.println(indent + "Method " + Integer.toString(i) + ":");
     		methods[i].setAccessible(true);
     		System.out.println(indent + " Name: " + methods[i].getName());
     		exceptions = methods[i].getExceptionTypes();
@@ -82,10 +84,32 @@ public class Inspector {
     		} else {
     			System.out.print(indent + " Parameter Types: None");
     		}
-    		System.out.println("\n" + indent + " Modifier: " + Modifier.toString(methods[i].getModifiers()));
+    		System.out.println("\n" + indent + " Return Type: " + methods[i].getReturnType());
+    		System.out.println(indent + " Modifier: " + Modifier.toString(methods[i].getModifiers()));
+    	}
+    	
+    	fields = c.getDeclaredFields();
+    	for (int i = 0; i < fields.length; i+=1) {
+    		System.out.println(indent + "Field " + Integer.toString(i) + ":");
+    		fields[i].setAccessible(true);
+    		System.out.println(indent + " Name: " + fields[i].getName());
+    		System.out.println(indent + " Type: " + fields[i].getType());
+    		System.out.println(indent + " Modifier: " + Modifier.toString(fields[i].getModifiers()));
+    		try {
+				System.out.println(indent + " Value: " + fields[i].get(obj));
+			} catch (IllegalArgumentException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    		
     	}
     	
     }
+    
+    
     
     private String getTabs(int num_tabs) {
     	String tabs = "";
