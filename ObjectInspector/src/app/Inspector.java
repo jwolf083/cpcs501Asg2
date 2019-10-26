@@ -1,5 +1,6 @@
 package app;
 
+import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Executable;
 import java.lang.reflect.Field;
@@ -19,7 +20,12 @@ public class Inspector {
     private void inspectClass(Class<?> c, Object obj, boolean recursive, int depth) {
     	String indent = getTabs(depth);
     	
-    	System.out.println(indent + "Declaring Class Name: " + c.getCanonicalName());
+    	System.out.println("Entering new class with depth: " + depth);
+    	if (c.isArray()) {
+    		inspectArray(c, obj, recursive, depth);
+    	} else {
+    		System.out.println(indent + "Declaring Class Name: " + c.getCanonicalName());
+    	}
     	inspectSuperClass(c, obj, depth);
     	inspectInterfaces(c, obj, depth);
     	inspectConstructors(c, depth);
@@ -59,7 +65,10 @@ public class Inspector {
     	String indent = getTabs(depth);
     	
     	for (int i = 0; i < constructors.length; i+=1) {
-    		System.out.println(indent + "Constructor " + Integer.toString(i) + ":");
+    		System.out.println(indent + "Constructor " 
+    						+ Integer.toString(i) + " of " 
+    						+ c.getCanonicalName() 
+    						+ " with depth: " + depth);
     		constructors[i].setAccessible(true);
     		System.out.println(indent + " Name: " + constructors[i].getName());
     		inspectParameters(constructors[i], depth);
@@ -73,7 +82,10 @@ public class Inspector {
     	String indent = getTabs(depth);
     	
     	for (int i = 0; i < methods.length; i+=1) {
-    		System.out.println(indent + "Method " + Integer.toString(i) + ":");
+    		System.out.println(indent + "Method " 
+    				+ Integer.toString(i) + " of " 
+					+ c.getCanonicalName() 
+					+ " with depth: " + depth);
     		methods[i].setAccessible(true);
     		System.out.println(indent + " Name: " + methods[i].getName());
     		
@@ -118,33 +130,18 @@ public class Inspector {
     private void inspectFields(Class<?> c, Object obj, boolean recursive, int depth) {
     	String indent = getTabs(depth);
     	Field[] fields = c.getDeclaredFields();
-    	Object contained_obj;
-    	Class<?> contained_obj_class;
     	
     	for (int i = 0; i < fields.length; i+=1) {
-    		System.out.println(indent + "Field " + Integer.toString(i) + ":");
+    		System.out.println(indent + "Field " 
+    				+ Integer.toString(i) + " of " 
+					+ c.getCanonicalName() 
+					+ " with depth: " + depth);
     		fields[i].setAccessible(true);
     		System.out.println(indent + " Name: " + fields[i].getName());
     		System.out.println(indent + " Type: " + fields[i].getType());
     		System.out.println(indent + " Modifier: " + Modifier.toString(fields[i].getModifiers()));
     		try {
-    			contained_obj = fields[i].get(obj);
-    			if (contained_obj == null) {
-    				System.out.println(indent + " Value: null");
-    			} else {
-    				contained_obj_class = contained_obj.getClass();
-        			if (isWrapperType(contained_obj_class)) {
-        				System.out.println(indent + " Value: " + contained_obj);
-        			} else {
-        				if (recursive) {
-            				System.out.println(indent + " Value: ");
-            				inspectClass(contained_obj_class, contained_obj, true, depth + 1);
-            			} else {
-            				System.out.println(indent + " Value: " + contained_obj_class.getCanonicalName()
-            						+ "@" + System.identityHashCode(contained_obj));
-            			}
-        			}
-    			}
+				inspectValue(fields[i].get(obj), recursive, depth);
 			} catch (IllegalArgumentException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -152,6 +149,45 @@ public class Inspector {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+    	}
+    }
+    
+    private void inspectValue(Object obj, boolean recursive, int depth) {
+    	Class<?> obj_class;
+    	String indent = getTabs(depth);
+    	
+		if (obj == null) {
+			System.out.println(indent + " Value: null");
+		} else {
+			obj_class = obj.getClass();
+			if (isWrapperType(obj_class)) {
+    			System.out.println(indent + " Value: " + obj);
+    		} else {
+    			if (recursive) {
+        			System.out.println(indent + " Value: ");
+        			inspectClass(obj_class, obj, true, depth + 1);
+        		} else {
+        			System.out.println(indent + " Value: " + obj_class.getCanonicalName()
+        					+ "@" + System.identityHashCode(obj));
+        		}
+    		}
+		}
+    }
+    
+    private void inspectArray(Class<?> c, Object obj, boolean recursive, int depth) {
+    	String indent = getTabs(depth);
+    	int length = Array.getLength(obj);
+    	
+    	System.out.println(indent + "Declaring Class Name: " + c.getCanonicalName());
+    	System.out.println(indent + "Component Type: " + c.getComponentType().getCanonicalName());
+    	System.out.println(indent + "Length: " + Integer.toString(length));
+    	if (length > 0) {
+    		System.out.println(indent + "Content: ");
+    	} else {
+    		System.out.println(indent + "Content: None");
+    	}
+    	for (int i = 0; i < length; i+=1) {
+    		inspectValue(Array.get(obj, i), recursive, depth);
     	}
     }
     
