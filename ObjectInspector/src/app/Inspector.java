@@ -6,6 +6,8 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.Parameter;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Inspector {
 
@@ -53,10 +55,9 @@ public class Inspector {
     }
     
     private void inspectConstructors(Class<?> c, int depth) {
-    	Constructor<?>[] constructors;
+    	Constructor<?>[] constructors = c.getDeclaredConstructors();
     	String indent = getTabs(depth);
     	
-    	constructors = c.getDeclaredConstructors();
     	for (int i = 0; i < constructors.length; i+=1) {
     		System.out.println(indent + "Constructor " + Integer.toString(i) + ":");
     		constructors[i].setAccessible(true);
@@ -68,10 +69,9 @@ public class Inspector {
     }
     
     private void inspectMethods(Class<?> c, int depth) {
-    	Method[] methods;
+    	Method[] methods = c.getDeclaredMethods();
     	String indent = getTabs(depth);
     	
-    	methods = c.getDeclaredMethods();
     	for (int i = 0; i < methods.length; i+=1) {
     		System.out.println(indent + "Method " + Integer.toString(i) + ":");
     		methods[i].setAccessible(true);
@@ -117,9 +117,10 @@ public class Inspector {
     
     private void inspectFields(Class<?> c, Object obj, boolean recursive, int depth) {
     	String indent = getTabs(depth);
-    	Field[] fields;
+    	Field[] fields = c.getDeclaredFields();
+    	Object contained_obj;
+    	Class<?> contained_obj_class;
     	
-    	fields = c.getDeclaredFields();
     	for (int i = 0; i < fields.length; i+=1) {
     		System.out.println(indent + "Field " + Integer.toString(i) + ":");
     		fields[i].setAccessible(true);
@@ -127,7 +128,23 @@ public class Inspector {
     		System.out.println(indent + " Type: " + fields[i].getType());
     		System.out.println(indent + " Modifier: " + Modifier.toString(fields[i].getModifiers()));
     		try {
-				System.out.println(indent + " Value: " + fields[i].get(obj));
+    			contained_obj = fields[i].get(obj);
+    			if (contained_obj == null) {
+    				System.out.println(indent + " Value: null");
+    			} else {
+    				contained_obj_class = contained_obj.getClass();
+        			if (isWrapperType(contained_obj_class)) {
+        				System.out.println(indent + " Value: " + contained_obj);
+        			} else {
+        				if (recursive) {
+            				System.out.println(indent + " Value: ");
+            				inspectClass(contained_obj_class, contained_obj, true, depth + 1);
+            			} else {
+            				System.out.println(indent + " Value: " + contained_obj_class.getCanonicalName()
+            						+ "@" + System.identityHashCode(contained_obj));
+            			}
+        			}
+    			}
 			} catch (IllegalArgumentException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -136,6 +153,28 @@ public class Inspector {
 				e.printStackTrace();
 			}
     	}
+    }
+    
+    private static final Set<Class<?>> WRAPPER_TYPES = getWrapperTypes();
+
+    private static boolean isWrapperType(Class<?> clazz)
+    {
+        return WRAPPER_TYPES.contains(clazz);
+    }
+
+    private static Set<Class<?>> getWrapperTypes()
+    {
+        Set<Class<?>> ret = new HashSet<Class<?>>();
+        ret.add(Boolean.class);
+        ret.add(Character.class);
+        ret.add(Byte.class);
+        ret.add(Short.class);
+        ret.add(Integer.class);
+        ret.add(Long.class);
+        ret.add(Float.class);
+        ret.add(Double.class);
+        ret.add(Void.class);
+        return ret;
     }
     
     private String getTabs(int num_tabs) {
