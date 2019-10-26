@@ -24,7 +24,8 @@ public class Inspector {
     	if (c.isArray()) {
     		inspectArray(c, obj, recursive, depth);
     	} else {
-    		System.out.println(indent + "Declaring Class Name: " + c.getCanonicalName());
+    		System.out.println(indent + "Declaring Class Name: " 
+    					+ Modifier.toString(c.getModifiers()) + " " + c.getCanonicalName());
     	}
     	inspectSuperClass(c, obj, depth);
     	inspectInterfaces(c, obj, depth);
@@ -143,10 +144,8 @@ public class Inspector {
     		try {
 				inspectValue(fields[i].get(obj), recursive, depth);
 			} catch (IllegalArgumentException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (IllegalAccessException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
     	}
@@ -178,7 +177,8 @@ public class Inspector {
     	String indent = getTabs(depth);
     	int length = Array.getLength(obj);
     	
-    	System.out.println(indent + "Declaring Class Name: " + c.getCanonicalName());
+    	System.out.println(indent + "Declaring Class Name: " 
+				+ Modifier.toString(c.getModifiers()) + " " + c.getCanonicalName());
     	System.out.println(indent + "Component Type: " + c.getComponentType().getCanonicalName());
     	System.out.println(indent + "Length: " + Integer.toString(length));
     	if (length > 0) {
